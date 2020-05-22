@@ -1,7 +1,7 @@
 package servlets;
 
 import model.User;
-import service.UserService;
+import service.UserJdbcService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,31 +10,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet("/new")
-public class AddUserServlet extends HttpServlet {
-    public static boolean bool = true;
+@WebServlet("/edit-jdbc")
+public class UpdateUserJdbcServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, Object> map = new HashMap<>();
+        Long id = Long.valueOf(req.getParameter("id"));
         String surname = req.getParameter("surname");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        bool = new UserService().addUser(new User(surname, name, password, email));
-        if (bool) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
-            dispatcher.forward(req, resp);
-            resp.setStatus(200);
-        } else {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
-            dispatcher.forward(req, resp);
-        }
+        new UserJdbcService().editUser(new User(id, surname, name, password, email));
+        resp.sendRedirect("allUser-jdbc.jsp");
+        resp.setStatus(200);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("addUser.jsp");
+        Long id = Long.valueOf(req.getParameter("id"));
+        User existingUser = new UserJdbcService().getUserById(id);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("addUser-jdbc.jsp");
+        req.setAttribute("user", existingUser);
         dispatcher.forward(req, resp);
     }
 }

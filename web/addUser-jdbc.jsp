@@ -9,15 +9,16 @@
 <center>
     <h1>Управление</h1>
     <h2>
-        <a href="list">Список всех пользователей</a>
+        <a href="allUser-jdbc.jsp">Список всех пользователей</a><br><br>
+        <a href="index.jsp">На главную</a>
     </h2>
 </center>
 <div align="center">
     <c:if test="${user != null}">
-    <form action="edit" method="post">
+    <form action="edit-jdbc" method="post">
         </c:if>
         <c:if test="${user == null}">
-        <form action="new" method="post">
+        <form action="new-jdbc" method="post">
             </c:if>
             <table border="1" cellpadding="5">
                 <caption>

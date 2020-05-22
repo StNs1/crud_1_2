@@ -1,6 +1,6 @@
 package service;
 
-import dao.UserDAO;
+import dao.UserJdbcDAO;
 import model.User;
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserService {
+public class UserJdbcService implements UserService {
 
     private static Connection getMySqlConnection() {
         try {
@@ -34,14 +34,14 @@ public class UserService {
             throw new IllegalStateException();
         }
     }
-    private static UserDAO getUserDAO() {
-        return new UserDAO(getMySqlConnection());
+    private static UserJdbcDAO getUserDAO() {
+        return new UserJdbcDAO(getMySqlConnection());
     }
 
     public List<User> getAllUsers() {
-        UserDAO userDAO = getUserDAO();
+        UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
-            List<User> list = userDAO.getAllUsers();
+            List<User> list = userJdbcDAO.getAllUsers();
             return list;
         } catch (SQLException e) {
             return null;
@@ -49,9 +49,9 @@ public class UserService {
     }
 
     public User getUserById(long id) {
-        UserDAO userDAO = getUserDAO();
+        UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
-            User user = userDAO.getUserById(id);
+            User user = userJdbcDAO.getUserById(id);
             return user;
         } catch (SQLException e) {
             return null;
@@ -59,18 +59,18 @@ public class UserService {
     }
 
     public boolean addUser(User user) {
-        UserDAO userDAO = getUserDAO();
+        UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
-            return userDAO.addUser(user);
+            return userJdbcDAO.addUser(user);
         } catch (SQLException e) {
             return false;
         }
     }
 
     public boolean editUser(User user) {
-        UserDAO userDAO = getUserDAO();
+        UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
-            userDAO.editUser(user);
+            userJdbcDAO.editUser(user);
             return true;
         } catch (SQLException e) {
             return false;
@@ -78,9 +78,9 @@ public class UserService {
     }
 
     public boolean deleteUser(User user) {
-        UserDAO userDAO = getUserDAO();
+        UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
-            userDAO.deleteUser(user);
+            userJdbcDAO.deleteUser(user);
             return true;
         } catch (SQLException e) {
             return false;
@@ -88,18 +88,18 @@ public class UserService {
     }
 
     public void cleanUp() {
-        UserDAO userDAO = getUserDAO();
+        UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
-            userDAO.dropTable();
+            userJdbcDAO.dropTable();
         } catch (SQLException e) {
 
         }
     }
 
     public void createTable() {
-        UserDAO userDAO = getUserDAO();
+        UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
-            userDAO.createTable();
+            userJdbcDAO.createTable();
         } catch (SQLException e) {
 
         }
