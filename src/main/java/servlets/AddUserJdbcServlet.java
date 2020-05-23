@@ -14,12 +14,13 @@ import java.io.IOException;
 @WebServlet("/new-jdbc")
 public class AddUserJdbcServlet extends HttpServlet {
     public static boolean bool = true;
+    UserJdbcService userJdbcService = UserJdbcService.getInstance();
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String surname = req.getParameter("surname");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        bool = new UserJdbcService().addUser(new User(surname, name, password, email));
+        bool = userJdbcService.addUser(new User(surname, name, password, email));
         resp.sendRedirect("allUser-jdbc.jsp");
     }
 

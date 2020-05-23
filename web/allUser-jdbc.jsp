@@ -44,12 +44,12 @@
                 <th>Действие</th>
             </tr>
             <%
+                UserJdbcService userJdbcService = UserJdbcService.getInstance();
                 if (flag) {
-                    UserJdbcService userJdbcService = new UserJdbcService();
                     userJdbcService.createTable();
                     flag = false;
                 }
-                List<User> list = new UserJdbcService().getAllUsers();
+                List<User> list = userJdbcService.getAllUsers();
                 request.setAttribute("listUser", list);
             %>
             <c:forEach var="user" items="${listUser}">
