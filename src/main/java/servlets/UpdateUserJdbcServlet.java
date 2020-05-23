@@ -13,21 +13,21 @@ import java.io.IOException;
 
 @WebServlet("/edit-jdbc")
 public class UpdateUserJdbcServlet extends HttpServlet {
-
+    UserJdbcService userJdbcService = UserJdbcService.getInstance();
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.valueOf(req.getParameter("id"));
         String surname = req.getParameter("surname");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        new UserJdbcService().editUser(new User(id, surname, name, password, email));
+        userJdbcService.editUser(new User(id, surname, name, password, email));
         resp.sendRedirect("allUser-jdbc.jsp");
         resp.setStatus(200);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.valueOf(req.getParameter("id"));
-        User existingUser = new UserJdbcService().getUserById(id);
+        User existingUser = userJdbcService.getUserById(id);
         RequestDispatcher dispatcher = req.getRequestDispatcher("addUser-jdbc.jsp");
         req.setAttribute("user", existingUser);
         dispatcher.forward(req, resp);
