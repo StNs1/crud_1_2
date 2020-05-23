@@ -36,6 +36,7 @@
                 <th>Имя</th>
                 <th>Пароль</th>
                 <th>Email</th>
+                <th>Роль</th>
                 <th>Действие</th>
             </tr>
             <%
@@ -49,6 +50,7 @@
                     <td><c:out value="${user.name}"/></td>
                     <td><c:out value="${user.password}"/></td>
                     <td><c:out value="${user.email}"/></td>
+                    <td><c:out value="${user.role}"/></td>
                     <td>
                         <a href="edit-hibernate?id=<c:out value='${user.id}' />">Изменить</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;

@@ -42,6 +42,7 @@
                 <th>Пароль</th>
                 <th>Email</th>
                 <th>Действие</th>
+                <th>Роль</th>
             </tr>
             <%
                 UserJdbcService userJdbcService = UserJdbcService.getInstance();
@@ -59,6 +60,7 @@
                     <td><c:out value="${user.name}"/></td>
                     <td><c:out value="${user.password}"/></td>
                     <td><c:out value="${user.email}"/></td>
+                    <td><c:out value="${user.role}"/></td>
                     <td>
                         <a href="edit-jdbc?id=<c:out value='${user.id}' />">Изменить</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
