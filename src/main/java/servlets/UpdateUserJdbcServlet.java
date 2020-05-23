@@ -20,7 +20,8 @@ public class UpdateUserJdbcServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        userJdbcService.editUser(new User(id, surname, name, password, email));
+        String role = req.getParameter("role");
+        userJdbcService.editUser(new User(id, surname, name, password, email, role));
         resp.sendRedirect("allUser-jdbc.jsp");
         resp.setStatus(200);
     }

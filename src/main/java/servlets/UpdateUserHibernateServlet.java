@@ -21,7 +21,8 @@ public class UpdateUserHibernateServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        userHibernateService.editUser(new User(id, surname, name, password, email));
+        String role = req.getParameter("role");
+        userHibernateService.editUser(new User(id, surname, name, password, email, role));
         resp.sendRedirect("allUser-hibernate.jsp");
         resp.setStatus(200);
     }

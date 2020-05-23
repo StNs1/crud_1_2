@@ -20,7 +20,8 @@ public class AddUserHibernateServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        bool = userHibernateService.addUser(new User(surname, name, password, email));
+        String role = req.getParameter("role");
+        bool = userHibernateService.addUser(new User(surname, name, password, email, role));
         resp.sendRedirect("allUser-hibernate.jsp");
     }
 

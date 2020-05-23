@@ -19,6 +19,8 @@ public class User {
     private String password;
     @Column (name = "email")
     private String email;
+    @Column (name = "role")
+    private String role;
 
     public User() {
 
@@ -41,6 +43,23 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
+    }
+
+    public User(String surname, String name, String password, String email, String role) {
+        this.surname = surname;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    public User(long id, String surname, String name, String password, String email, String role) {
+        this.id = id;
+        this.surname = surname;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
     public long getId() {
@@ -81,6 +100,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

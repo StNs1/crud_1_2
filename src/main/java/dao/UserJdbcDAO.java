@@ -25,7 +25,8 @@ public class UserJdbcDAO implements UserDAO {
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
-                    resultSet.getString(5));
+                    resultSet.getString(5),
+                    resultSet.getString(6));
             list.add(user);
         }
         resultSet.close();
@@ -48,12 +49,13 @@ public class UserJdbcDAO implements UserDAO {
         resultSet.close();
         stmt.close();
         if (flag) {
-            String insert = "INSERT INTO db_user(surname, name, password, email) VALUES (?, ?, ?, ?)";
+            String insert = "INSERT INTO db_user(surname, name, password, email) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insert);
             preparedStatement.setString(1, user.getSurname());
             preparedStatement.setString(2, user.getName());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setString(4, userEmail);
+            preparedStatement.setString(5, user.getRole());
             preparedStatement.executeUpdate();
             preparedStatement.close();
             return true;
@@ -63,13 +65,14 @@ public class UserJdbcDAO implements UserDAO {
     }
 
     public void editUser(User user) throws SQLException {
-        String edit = "UPDATE db_user SET surname = ?, name = ?, password = ?, email = ? where id = ?";
+        String edit = "UPDATE db_user SET surname = ?, name = ?, password = ?, email = ?, role = ? where id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(edit);
         preparedStatement.setString(1, user.getSurname());
         preparedStatement.setString(2, user.getName());
         preparedStatement.setString(3, user.getPassword());
         preparedStatement.setString(4, user.getEmail());
-        preparedStatement.setLong(5, user.getId());
+        preparedStatement.setString(5, user.getRole());
+        preparedStatement.setLong(6, user.getId());
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
@@ -93,7 +96,8 @@ public class UserJdbcDAO implements UserDAO {
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
-                    resultSet.getString(5));
+                    resultSet.getString(5),
+                    resultSet.getString(6));
         }
         return user;
     }
