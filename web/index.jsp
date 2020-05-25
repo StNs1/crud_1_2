@@ -12,14 +12,14 @@
     if (UserDaoFactory.getUserDao().equals("hibernate")){
 %>
     <h2 align="center">
-        <a href="login-hibernate.jsp">Войти</a><br><br>
+        <a href="login.jsp">Войти</a><br><br>
         <a href="register-hibernate.jsp">Зарегистрироваться</a>
     </h2>
 <%
     } else if (UserDaoFactory.getUserDao().equals("jdbc")) {
 %>
     <h2 align="center">
-        <a href="login-jdbc.jsp">Войти</a><br><br>
+        <a href="login.jsp">Войти</a><br><br>
         <a href="register-jdbc.jsp">Зарегистрироваться</a>
     </h2>
 <%

@@ -1,7 +1,6 @@
 package dao;
 
 import model.User;
-import org.hibernate.hql.internal.ast.SqlASTFactory;
 
 import java.sql.SQLException;
 import java.util.List;

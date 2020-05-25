@@ -19,6 +19,7 @@ public class LoginServlet extends HttpServlet {
     public static String email;
     public static String password;
     public static User user;
+    public static String role;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final HttpSession httpSession = req.getSession();
@@ -26,6 +27,7 @@ public class LoginServlet extends HttpServlet {
         password = (String) httpSession.getAttribute("password");
         if (UserDaoFactory.getUserDao().equals("hibernate")) {
             user = userHibernateService.getUserByEmail(email);
+            role = user.getRole();
             httpSession.setAttribute("role", user.getRole());
             req.setAttribute("user", user);
             if (userHibernateService.getUserRole(email).equals("admin")) {
@@ -35,6 +37,7 @@ public class LoginServlet extends HttpServlet {
             }
         } else {
             user = userJdbcService.getUserByEmail(email);
+            role = user.getRole();
             httpSession.setAttribute("role", user.getRole());
             req.setAttribute("user", user);
             if (userJdbcService.getUserRole(req.getParameter("email")).equals("admin")) {
