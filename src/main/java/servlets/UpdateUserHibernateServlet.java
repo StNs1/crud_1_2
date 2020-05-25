@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet ("/edit-hibernate")
+@WebServlet ("/admin/edit-hibernate")
 public class UpdateUserHibernateServlet extends HttpServlet {
     UserHibernateService userHibernateService = UserHibernateService.getInstance();
 
@@ -23,14 +23,14 @@ public class UpdateUserHibernateServlet extends HttpServlet {
         String email = req.getParameter("email");
         String role = req.getParameter("role");
         userHibernateService.editUser(new User(id, surname, name, password, email, role));
-        resp.sendRedirect("allUser-hibernate.jsp");
+        resp.sendRedirect("/admin/allUser-hibernate");
         resp.setStatus(200);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.valueOf(req.getParameter("id"));
         User existingUser = userHibernateService.getUserById(id);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("addUser-hibernate.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/addUser-hibernate.jsp");
         req.setAttribute("user", existingUser);
         dispatcher.forward(req, resp);
     }

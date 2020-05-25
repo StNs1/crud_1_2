@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/login-hibernate" method="post">
+<form action="/login" method="get">
     <center>
         <table border="1" cellpadding="5">
             <caption>

@@ -54,6 +54,7 @@ public class UserJdbcService implements UserService {
         //return new UserJdbcDAO(getMySqlConnection());
     }
 
+    @Override
     public List<User> getAllUsers() {
         UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
@@ -64,6 +65,7 @@ public class UserJdbcService implements UserService {
         }
     }
 
+    @Override
     public User getUserById(long id) {
         UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
@@ -74,6 +76,29 @@ public class UserJdbcService implements UserService {
         }
     }
 
+    @Override
+    public String getUserRole(String email) {
+        UserJdbcDAO userJdbcDAO = getUserDAO();
+        try {
+            return userJdbcDAO.getUserRole(email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isExistUser(String email, String password) {
+        UserJdbcDAO userJdbcDAO = getUserDAO();
+        try {
+            return userJdbcDAO.isExistUser(email, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public boolean addUser(User user) {
         UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
@@ -83,6 +108,18 @@ public class UserJdbcService implements UserService {
         }
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        UserJdbcDAO userJdbcDAO = getUserDAO();
+        try {
+            return userJdbcDAO.getUserByEmail(email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public boolean editUser(User user) {
         UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
@@ -93,6 +130,7 @@ public class UserJdbcService implements UserService {
         }
     }
 
+    @Override
     public boolean deleteUser(User user) {
         UserJdbcDAO userJdbcDAO = getUserDAO();
         try {
@@ -103,6 +141,7 @@ public class UserJdbcService implements UserService {
         }
     }
 
+    @Override
     public void cleanUp() {
         UserJdbcDAO userJdbcDAO = getUserDAO();
         try {

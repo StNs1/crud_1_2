@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/new-jdbc")
+@WebServlet("/admin/new-jdbc")
 public class AddUserJdbcServlet extends HttpServlet {
     public static boolean bool = true;
     UserJdbcService userJdbcService = UserJdbcService.getInstance();
@@ -22,11 +22,11 @@ public class AddUserJdbcServlet extends HttpServlet {
         String email = req.getParameter("email");
         String role = req.getParameter("role");
         bool = userJdbcService.addUser(new User(surname, name, password, email, role));
-        resp.sendRedirect("allUser-jdbc.jsp");
+        resp.sendRedirect("/admin/allUser-jdbc");
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("addUser-jdbc.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/addUser-jdbc.jsp");
         dispatcher.forward(req, resp);
     }
 }

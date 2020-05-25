@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/new-hibernate")
+@WebServlet("/admin/new-hibernate")
 public class AddUserHibernateServlet extends HttpServlet {
     public static boolean bool = true;
     UserHibernateService userHibernateService = UserHibernateService.getInstance();
@@ -22,11 +22,11 @@ public class AddUserHibernateServlet extends HttpServlet {
         String email = req.getParameter("email");
         String role = req.getParameter("role");
         bool = userHibernateService.addUser(new User(surname, name, password, email, role));
-        resp.sendRedirect("allUser-hibernate.jsp");
+        resp.sendRedirect("/admin/allUser-hibernate");
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("addUser-hibernate.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/addUser-hibernate.jsp");
         dispatcher.forward(req, resp);
     }
 }

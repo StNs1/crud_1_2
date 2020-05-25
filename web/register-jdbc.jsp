@@ -5,7 +5,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
-<form action="new-jdbc" method="post">
+<form action="/new-jdbc" method="post">
     <center>
         <table border="1" cellpadding="5">
             <caption>

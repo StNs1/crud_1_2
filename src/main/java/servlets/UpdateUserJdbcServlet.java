@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/edit-jdbc")
+@WebServlet("/admin/edit-jdbc")
 public class UpdateUserJdbcServlet extends HttpServlet {
     UserJdbcService userJdbcService = UserJdbcService.getInstance();
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class UpdateUserJdbcServlet extends HttpServlet {
         String email = req.getParameter("email");
         String role = req.getParameter("role");
         userJdbcService.editUser(new User(id, surname, name, password, email, role));
-        resp.sendRedirect("allUser-jdbc.jsp");
+        resp.sendRedirect("/admin/allUser-jdbc");
         resp.setStatus(200);
     }
 

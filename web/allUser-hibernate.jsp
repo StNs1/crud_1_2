@@ -19,12 +19,13 @@
         AddUserHibernateServlet.bool = true;
     }
 %>
-<form action="allUser-hibernate.jsp" method="GET">
+<form action="" method="GET">
     <center>
         <h1>Управление</h1>
         <h2>
-            <a href="new-hibernate">Добавить пользователя</a> <br><br>
-            <a href="index.jsp">На главную</a>
+            <a href="/admin/new-hibernate">Добавить пользователя</a> <br><br>
+            <a href="/index.jsp">На главную</a><br><br>
+            <a href="/logout">Выйти</a>
         </h2>
     </center>
     <div align="center">
@@ -52,9 +53,9 @@
                     <td><c:out value="${user.email}"/></td>
                     <td><c:out value="${user.role}"/></td>
                     <td>
-                        <a href="edit-hibernate?id=<c:out value='${user.id}' />">Изменить</a>
+                        <a href="/admin/edit-hibernate?id=<c:out value='${user.id}' />">Изменить</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="delete-hibernate?id=<c:out value='${user.id}' />">Удалить</a>
+                        <a href="/admin/delete-hibernate?id=<c:out value='${user.id}' />">Удалить</a>
                     </td>
                 </tr>
             </c:forEach>

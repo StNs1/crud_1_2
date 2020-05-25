@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="new-hibernate" method="post">
+<form action="/new-hibernate" method="post">
     <center>
         <table border="1" cellpadding="5">
             <caption>

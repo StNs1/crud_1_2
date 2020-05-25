@@ -24,12 +24,13 @@
         AddUserJdbcServlet.bool = true;
     }
 %>
-<form action="/list-jdbc" method="GET">
+<form action="" method="GET">
     <center>
         <h1>Управление</h1>
         <h2>
-            <a href="new-jdbc">Добавить пользователя</a> <br><br>
-            <a href="index.jsp">На главную</a>
+            <a href="/admin/new-jdbc">Добавить пользователя</a> <br><br>
+            <a href="/index.jsp">На главную</a><br><br>
+            <a href="/logout">Выйти</a>
         </h2>
     </center>
     <div align="center">

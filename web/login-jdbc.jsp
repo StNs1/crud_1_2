@@ -6,7 +6,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
-<form action="/login-jdbc" method="post">
+<form action="/login" method="get">
     <center>
         <table border="1" cellpadding="5">
             <caption>

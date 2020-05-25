@@ -27,6 +27,22 @@ public class UserHibernateService implements UserService {
         return userHibernateService;
     }
 
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            sessionFactory = createSessionFactory();
+        }
+        return sessionFactory;
+    }
+
+    private static SessionFactory createSessionFactory() {
+        DBHelper dbHelper = DBHelper.getInstance();
+        Configuration configuration = dbHelper.getConfiguration();
+        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+        builder.applySettings(configuration.getProperties());
+        ServiceRegistry serviceRegistry = builder.build();
+        return configuration.buildSessionFactory(serviceRegistry);
+    }
+
     @Override
     public List<User> getAllUsers() {
         UserHibernateDAO userHibernateDAO = new UserHibernateDAO(sessionFactory.openSession());
@@ -48,6 +64,39 @@ public class UserHibernateService implements UserService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String getUserRole(String email) {
+        UserHibernateDAO userHibernateDAO = new UserHibernateDAO(sessionFactory.openSession());
+        try {
+            return userHibernateDAO.getUserRole(email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        UserHibernateDAO userHibernateDAO = new UserHibernateDAO(sessionFactory.openSession());
+        try {
+            return userHibernateDAO.getUserByEmail(email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isExistUser(String email, String password) {
+        UserHibernateDAO userHibernateDAO = new UserHibernateDAO(sessionFactory.openSession());
+        try {
+            return userHibernateDAO.isExistUser(email, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -86,23 +135,6 @@ public class UserHibernateService implements UserService {
         return false;
     }
 
-    @Override
-    public void cleanUp() {
-        UserHibernateDAO userHibernateDAO = new UserHibernateDAO(sessionFactory.openSession());
-        try {
-            userHibernateDAO.dropTable();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            sessionFactory = createSessionFactory();
-        }
-        return sessionFactory;
-    }
-
    /* @SuppressWarnings("UnusedDeclaration")
     private static Configuration getMySqlConfiguration() {
        /* Configuration configuration = new Configuration();
@@ -118,12 +150,13 @@ public class UserHibernateService implements UserService {
         return configuration;
     }*/
 
-    private static SessionFactory createSessionFactory() {
-        DBHelper dbHelper = DBHelper.getInstance();
-        Configuration configuration = dbHelper.getConfiguration();//getMySqlConfiguration();
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        builder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = builder.build();
-        return configuration.buildSessionFactory(serviceRegistry);
+    @Override
+    public void cleanUp() {
+        UserHibernateDAO userHibernateDAO = new UserHibernateDAO(sessionFactory.openSession());
+        try {
+            userHibernateDAO.dropTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

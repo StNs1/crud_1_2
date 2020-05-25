@@ -9,16 +9,17 @@
 <center>
     <h1>Управление</h1>
     <h2>
-        <a href="allUser-jdbc.jsp">Список всех пользователей</a><br><br>
-        <a href="index.jsp">На главную</a>
+        <a href="/admin/allUser-jdbc">Список всех пользователей</a><br><br>
+        <a href="/index.jsp">На главную</a><br><br>
+        <a href="/logout">Выйти</a>
     </h2>
 </center>
 <div align="center">
     <c:if test="${user != null}">
-    <form action="edit-jdbc" method="post">
+    <form action="/admin/edit-jdbc" method="post">
         </c:if>
         <c:if test="${user == null}">
-        <form action="new-jdbc" method="post">
+        <form action="/admin/new-jdbc" method="post">
             </c:if>
             <table border="1" cellpadding="5">
                 <caption>
@@ -63,6 +64,14 @@
                     <td>
                         <input type="email" name="email" size="45"
                                value="<c:out value='${user.email}' />"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Роль:</th>
+                    <td>
+                        <input type="text" name="role" size="45"
+                               value="<c:out value='${user.role}' />"
                         />
                     </td>
                 </tr>

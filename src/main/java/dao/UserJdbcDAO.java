@@ -13,6 +13,7 @@ public class UserJdbcDAO implements UserDAO {
         this.connection = connection;
     }
 
+    @Override
     public List<User> getAllUsers() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.execute("SELECT * FROM db_user");
@@ -34,6 +35,7 @@ public class UserJdbcDAO implements UserDAO {
         return list;
     }
 
+    @Override
     public boolean addUser(User user) throws SQLException {
         String userEmail = user.getEmail();
         boolean flag = true;
@@ -64,6 +66,38 @@ public class UserJdbcDAO implements UserDAO {
         }
     }
 
+    @Override
+    public String getUserRole(String email) throws SQLException {
+        String select = "SELECT role FROM db_user WHERE email = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(select);
+        preparedStatement.setString(1, email);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        String role = resultSet.getString(1);
+        resultSet.close();
+        preparedStatement.close();
+        return role;
+    }
+
+    @Override
+    public boolean isExistUser(String email, String password) throws SQLException {
+        String select = "SELECT id FROM db_user where email = ? and password = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(select);
+        preparedStatement.setString(1, email);
+        preparedStatement.setString(2, password);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        Long id = resultSet.getLong(1);
+        resultSet.close();
+        preparedStatement.close();
+        if (id != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void editUser(User user) throws SQLException {
         String edit = "UPDATE db_user SET surname = ?, name = ?, password = ?, email = ?, role = ? where id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(edit);
@@ -77,6 +111,7 @@ public class UserJdbcDAO implements UserDAO {
         preparedStatement.close();
     }
 
+    @Override
     public void deleteUser(User user) throws SQLException {
         String delete = "DELETE FROM db_user WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(delete);
@@ -85,9 +120,28 @@ public class UserJdbcDAO implements UserDAO {
         preparedStatement.close();
     }
 
+    @Override
+    public User getUserByEmail(String email) throws SQLException {
+        String select = "SELECT * FROM db_user WHERE email = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(select);
+        preparedStatement.setString(1, email);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        resultSet.next();
+        User user = new User(
+                resultSet.getLong(1),
+                resultSet.getString(2),
+                resultSet.getString(3),
+                resultSet.getString(4),
+                resultSet.getString(5),
+                resultSet.getString(6));
+        return user;
+    }
+
+    @Override
     public User getUserById(long id) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("SELECT * FROM db_user WHERE id ="+id);
+        stmt.execute("SELECT * FROM db_user WHERE id =" + id);
         ResultSet resultSet = stmt.getResultSet();
         User user = null;
         while (resultSet.next()) {
@@ -101,11 +155,14 @@ public class UserJdbcDAO implements UserDAO {
         }
         return user;
     }
+
     public void createTable() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("CREATE TABLE IF NOT EXISTS db_user (id bigint auto_increment, surname varchar(256), name varchar(256), password varchar(256), email varchar(256), primary key (id))");
         stmt.close();
     }
+
+    @Override
     public void dropTable() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DROP TABLE IF EXISTS db_user");
